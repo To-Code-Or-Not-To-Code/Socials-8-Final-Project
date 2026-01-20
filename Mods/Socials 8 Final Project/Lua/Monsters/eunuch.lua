@@ -9,7 +9,7 @@ hp = 20000
 atk = 1
 def = 65
 check = "A member of your council done\rwith the weak emperors."
-dialogbubble = "right" -- See documentation for what bubbles you have available.
+dialogbubble = "rightlong" -- See documentation for what bubbles you have available.
 canspare = false
 cancheck = true
 missDialogue = {"Incredible.\nYou missed.", "Pathetic."}
@@ -36,8 +36,11 @@ function HandleCustomCommand(command)
         Player.def = Player.def + 3
     elseif command == "TAUNT" then
         if GetGlobal("canTaunt") == true then
+            BattleDialogue("You tell the eunuch\rthat he's a stain\ron their family.")
             currentdialogue = {"What do you mean? I am\nnot!"}
+            
         else
+            BattleDialogue("You tell the eunuch\rthat they can't\rland a single hit.")
             currentdialogue = {"Nice try."}
         end
     end
