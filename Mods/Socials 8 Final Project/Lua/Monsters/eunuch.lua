@@ -5,7 +5,7 @@ randomdialogue = {"Look at how\nfar you\nfallen.", "I'm done with you.", "Rememb
 
 sprite = "eunuch scaled" -- Always PNG. Extension is added automatically.
 name = "Rogue Eunuch"
-hp = 20000
+hp = 19998
 atk = 1
 def = 65
 check = "A member of your council done\rwith the weak emperors."
@@ -13,6 +13,8 @@ dialogbubble = "rightlong" -- See documentation for what bubbles you have availa
 canspare = false
 cancheck = true
 missDialogue = {"Incredible.\nYou missed.", "Pathetic."}
+taunts = {"You tell the eunuch\rthat he's a stain\ron their family.",
+        "You tell the eunuch\rthat they can't\rland a single hit."}
 
 -- Happens after the slash animation but before 
 function HandleAttack(attackstatus)
@@ -25,6 +27,7 @@ function HandleAttack(attackstatus)
             currentdialogue = {"What. How."}
             def = 65
             atk = 1
+            SetGlobal("taunted", false)
         end
     end
 end
@@ -35,13 +38,8 @@ function HandleCustomCommand(command)
         BattleDialog({"Your defense increased\n"})
         Player.def = Player.def + 3
     elseif command == "TAUNT" then
-        if GetGlobal("canTaunt") == true then
-            BattleDialogue("You tell the eunuch\rthat he's a stain\ron their family.")
-            currentdialogue = {"What do you mean? I am\nnot!"}
-            
-        else
-            BattleDialogue("You tell the eunuch\rthat they can't\rland a single hit.")
-            currentdialogue = {"Nice try."}
-        end
+        BattleDialogue({taunts[math.random(#taunts)], "The eunuch's attack increased.\rTheir defense dropped."})
+        atk = 65
+        def = 1
     end
 end

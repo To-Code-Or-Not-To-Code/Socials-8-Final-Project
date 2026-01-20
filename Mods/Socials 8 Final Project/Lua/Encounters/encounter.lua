@@ -46,8 +46,25 @@ item_effects = {
     }
 }
 
+SetGlobal("questions", {
+    ["q1"] = "L",
+    ["q2"] = "R",
+    ["q3"] = "L",
+    ["q4"] = "L",
+    ["q5"] = "L",
+    ["q6"] = "L",
+    ["q7"] = "L",
+    ["q8"] = "R",
+    ["q9"] = "L",
+    ["q10"] = "R",
+    ["q11"] = "R"
+})
+
+SetGlobal("currentQuestion", 1)
+
 SetGlobal("speedIncrease", 0)
-SetGlobal("canTaunt", false)
+SetGlobal("taunted", false)
+SetGlobal("canAttack", false)
 
 -- A custom list with attacks to choose from. Actual selection happens in EnemyDialogueEnding(). Put here in case you want to use it.
 possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou", "3LargeChaserOrbs"}
@@ -55,10 +72,11 @@ possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_tou
 
 function EncounterStarting()
     -- If you want to change the game state immediately, this is the place.
-    Inventory.AddCustomItems({"Infinite Sesame Cake", "Steamed Bun", "Soup", "Roast Duck", "Tea", "Cherry",
-                              "Rice Wine"}, {3, 0, 0, 0, 0, 0, 0})
+    Inventory.AddCustomItems(
+        {"Infinite Sesame Cake", "Steamed Bun", "Soup", "Roast Duck", "Tea", "Cherry", "Rice Wine"},
+        {3, 0, 0, 0, 0, 0, 0})
     Inventory.SetInventory({"Infinite Sesame Cake", "Steamed Bun", "Soup", "Roast Duck", "Tea", "Tea", "Cherry",
-                              "Rice Wine"})
+                            "Rice Wine"})
 end
 
 function EnemyDialogueStarting()
@@ -71,14 +89,10 @@ function EnemyDialogueEnding()
 end
 
 function DefenseEnding() -- This built-in function fires after the defense round ends.
-    if waves % 3 == 0 and waves > 0 then
-        encountertext = "Prove him wrong."
+    if Player.hp > Player.maxhp / 4 then
+        encountertext = "Lower his guard."
     else
-        if answered == true then
-            encountertext = "Lower his guard."
-        else
-            encountertext = "Wait." -- This built-in function gets a random encounter text from a random enemy.
-        end
+        encountertext = "Consume an item."
     end
     SetGlobal("speedIncrease", 0)
     waves = waves + 1
@@ -91,9 +105,27 @@ end
 function HandleItem(ItemID, ItemIndex, IsSilent)
     if not IsSilent then
         Player.hp = Player.hp + item_effects[ItemID].hp
+        if Player.hp > Player.maxhp then
+            Player.hp = Player.maxhp
+            BattleDialog({"You ate the" .. ItemID .. "!\rMax HP recovered."})
+        else
+            BattleDialog({"You ate the" .. ItemID .. "!\r" .. item_effects[ItemID].hp .. " HP recovered."})
+        end
         if item_effects[ItemID].spd > 0 then
             SetGlobal("speedIncrease", item_effects[ItemID].spd)
         end
-        BattleDialog({"You ate the " .. ItemID .. "."})
+    end
+end
+
+function HandleSpare()
+    BattleDialog({"No mercy now.[noskip][w:15][func:State,ACTIONSELECT]"})
+end
+
+function EnteringState(newstate, oldstate)
+    if newstate == "ATTACKING" and GetGlobal("canAttack") == false then
+        nextwaves = {"playerattack"}
+        State("DEFENDING")
+    else if newstate == "ATTACKING" and GetGlobal("canAttack") == true then
+        SetGlobal("canAttack", false)
     end
 end
