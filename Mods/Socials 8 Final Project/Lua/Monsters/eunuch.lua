@@ -1,6 +1,6 @@
 -- A basic monster script skeleton you can copy and modify for your own creations.
 comments = {"Can't be hit.\rTry lowering their defense.", "Bait them to exchange\rattack for defense."}
-commands = {"Defend", "Taunt", "Answer"}
+commands = {"Defend", "Taunt"}
 randomdialogue = {"Look at how\nfar you\nfallen.", "I'm done with you.", "Remember the\nAn Lushan\nrebellion?"}
 
 sprite = "eunuch scaled" -- Always PNG. Extension is added automatically.
@@ -40,12 +40,5 @@ function HandleCustomCommand(command)
         else
             currentdialogue = {"Nice try."}
         end
-    elseif command == "ANSWER" then
-        if GetGlobal("canAnswer") == true then
-            currentdialogue = {"Do you really\nknow your people?"}
-        else
-            currentdialogue = {"What are you\n answering to?"}
-        end
     end
-    BattleDialog({"You selected " .. command .. "."})
 end

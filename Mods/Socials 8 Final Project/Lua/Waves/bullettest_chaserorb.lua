@@ -45,5 +45,5 @@ function Update()
 end
 
 function OnHit()
-    Player.Hurt(1,0)
+    Player.Hurt(1,0.5)
 end
