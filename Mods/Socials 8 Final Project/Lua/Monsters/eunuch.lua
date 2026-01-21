@@ -41,7 +41,6 @@ function HandleCustomCommand(command)
     elseif command == "TAUNT" then
         atk = 65
         def = 1
-        DEBUG(atk)
         BattleDialogue({taunts[math.random(#taunts)], "The eunuch dropped his guard.\rGet him now."})
         currentdialogue = {"What do you mean?"}
     end

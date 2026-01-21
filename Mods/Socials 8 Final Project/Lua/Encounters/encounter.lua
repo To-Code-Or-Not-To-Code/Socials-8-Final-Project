@@ -4,7 +4,7 @@ encountertext = "The rogue eunuch approaches..." -- Modify as necessary. It will
 nextwaves = {"bullettest_chaserorb"}
 wavetimer = 10.0
 arenasize = {155, 130}
-deathtexts = {"Why am I not suprised you're dead?", "Skill Issue", "lmao you're washed.", "We meet again."}
+deathtexts = {"Why am I not suprised you're dead?", "Skill issue", "lmao you're washed.", "We meet again."}
 deathtext = deathtexts[math.random(#deathtexts)]
 waves = 0
 
