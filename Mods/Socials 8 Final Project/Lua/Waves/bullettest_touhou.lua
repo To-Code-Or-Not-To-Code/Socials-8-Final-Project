@@ -4,7 +4,31 @@ bullets = {}
 yOffset = 180
 mult = 0.5
 
+if GetGlobal("speedIncrease") ~= 0 then
+    Player.SetControlOverride(true)
+else
+    Player.SetControlOverride(false)
+end
+
 function Update()
+    if GetGlobal("speedIncrease") ~= 0 then
+        y_speed = 0
+        x_speed = 0
+        if Input.Up > 0 then
+            y_speed = 2 + GetGlobal("speedIncrease")
+        end
+        if Input.Down > 0 then
+            y_speed = -2 - GetGlobal("speedIncrease")
+        end
+        if Input.Left > 0 then
+            x_speed = -2 - GetGlobal("speedIncrease")
+        end
+        if Input.Right > 0 then
+            x_speed = 2 + GetGlobal("speedIncrease")
+        end
+        Player.Move(x_speed, y_speed)
+    end
+
     spawntimer = spawntimer + 1
     if(spawntimer % 30 == 0) then
         local numbullets = 10
@@ -50,5 +74,9 @@ function Update()
 end
 
 function OnHit()
-    Player.Hurt(1,0)
+    if GetGlobal("taunted") then
+        Player.Hurt(10, 0)
+    else
+        Player.Hurt(1,0)
+    end
 end

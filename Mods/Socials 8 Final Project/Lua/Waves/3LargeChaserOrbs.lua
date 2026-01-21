@@ -50,7 +50,31 @@ chasingbullet3.SetVar('xspeed', 0)
 chasingbullet3.SetVar('yspeed', 0)
 rotation = 0
 
+if GetGlobal("speedIncrease") ~= 0 then
+    Player.SetControlOverride(true)
+else
+    Player.SetControlOverride(false)
+end
+
 function Update()
+    if GetGlobal("speedIncrease") ~= 0 then
+        y_speed = 0
+        x_speed = 0
+        if Input.Up > 0 then
+            y_speed = 2 + GetGlobal("speedIncrease")
+        end
+        if Input.Down > 0 then
+            y_speed = -2 - GetGlobal("speedIncrease")
+        end
+        if Input.Left > 0 then
+            x_speed = -2 - GetGlobal("speedIncrease")
+        end
+        if Input.Right > 0 then
+            x_speed = 2 + GetGlobal("speedIncrease")
+        end
+        Player.Move(x_speed, y_speed)
+    end
+
     local xdifference1 = Player.x - chasingbullet1.x
     local ydifference1 = Player.y - chasingbullet1.y
     local xspeed1 = chasingbullet1.GetVar('xspeed') / 2 + xdifference1 / 100
@@ -76,4 +100,12 @@ function Update()
     chasingbullet3.SetVar('yspeed', yspeed3)
     chasingbullet3.sprite.rotation = rotation
     rotation = rotation + 10
+end
+
+function OnHit()
+    if GetGlobal("taunted") then
+        Player.Hurt(10, 0)
+    else
+        Player.Hurt(1,0)
+    end
 end
