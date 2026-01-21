@@ -4,7 +4,7 @@ encountertext = "The rogue eunuch approaches..." -- Modify as necessary. It will
 nextwaves = {"bullettest_chaserorb"}
 wavetimer = 10.0
 arenasize = {155, 130}
-deathtexts = {"Why am I not suprised you're dead?", "Skill Issue", "Lmao you're washed."}
+deathtexts = {"Why am I not suprised you're dead?", "Skill Issue", "lmao you're washed.", "We meet again."}
 deathtext = deathtexts[math.random(#deathtexts)]
 waves = 0
 
@@ -69,8 +69,8 @@ SetGlobal("wronganswer", false)
 SetGlobal("cutsceneover", false)
 
 -- A custom list with attacks to choose from. Actual selection happens in EnemyDialogueEnding(). Put here in case you want to use it.
--- possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou", "3LargeChaserOrbs"}
-possible_attacks = {"bullettest_touhou"}
+possible_attacks = {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou", "3LargeChaserOrbs"}
+-- possible_attacks = {"bullettest_touhou"}
 
 function sleep (a) 
     local sec = tonumber(os.clock() + a); 

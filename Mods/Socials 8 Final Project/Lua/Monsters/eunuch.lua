@@ -58,7 +58,8 @@ function OnDeath()
                        "https://www.asianstudies.org/publications/eaa/archives/wu-zhao-ruler-of-tang-dynasty-china/",
                        "Music:\nMEGALOVANIA by Toby Fox.\nDetermination by Toby Fox.",
                        "Inspiration:\nUndertale by Toby Fox",
-                       "Notes:\nI ran out of time for my original plan so I spedran this in one day.",
+                       "Special thanks:\nRhenaoTheLukark's Create Your Frisk for making this possible",
+                       "Notes:\nI ran out of time for my original plan of a metroidvania so I spedran this in one day.",
                        "Hopefully it's fine.", "Thanks for playing!"}
     State("ENEMYDIALOGUE")
 end
