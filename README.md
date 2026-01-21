@@ -1,7 +1,7 @@
 # Socials 8 Final Project
 
 ## How to run
-Step 1: Download this repository (There should be a button where you can download a zip file)
+Step 1: Download this repository (Click the green `code` button and select download zip)
 
 Step 2: Open `Create Your Frisk 0.66 LTS 4.exe`
 
