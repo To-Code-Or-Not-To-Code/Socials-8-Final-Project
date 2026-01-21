@@ -16,7 +16,7 @@ Step 3: Navigate to the mod menu and open `Socials 8 Final Project`
 
 `→` or `D` for right
 
-`Z` for confirm
+`Z` or `enter` for confirm
 
 `shift` for cancel and skip text
 
